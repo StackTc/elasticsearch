@@ -11,6 +11,9 @@ public class ElasticsearchApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		/**
+		 * test
+		 */
 		System.out.println("test");
 	}
 
