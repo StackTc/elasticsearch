@@ -12,7 +12,7 @@ public class ElasticsearchApplicationTests {
 	@Test
 	public void contextLoads() {
 		/**
-		 * test
+		 * testa
 		 */
 		System.out.println("test");
 	}
