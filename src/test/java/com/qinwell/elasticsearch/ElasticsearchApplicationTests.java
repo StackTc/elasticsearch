@@ -232,6 +232,9 @@ public class ElasticsearchApplicationTests {
     }
 
 
+    /**
+     * 查询节点信息
+     */
     @Test
     public void clusterQuery() {
         ClusterHealthResponse clusterHealthResponse = client.admin().cluster().prepareHealth().get();
