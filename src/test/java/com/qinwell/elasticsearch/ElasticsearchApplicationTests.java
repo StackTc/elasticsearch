@@ -1,6 +1,7 @@
 package com.qinwell.elasticsearch;
 
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -9,6 +10,8 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.cluster.health.ClusterHealthStatus;
+import org.elasticsearch.cluster.health.ClusterIndexHealth;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -229,5 +232,21 @@ public class ElasticsearchApplicationTests {
     }
 
 
+    @Test
+    public void clusterQuery() {
+        ClusterHealthResponse clusterHealthResponse = client.admin().cluster().prepareHealth().get();
+        String clusterName = clusterHealthResponse.getClusterName();
+        log.info("clusterName:{}", clusterName);
+
+        int numOfData = clusterHealthResponse.getNumberOfDataNodes();
+        log.info("numOfDate:{}", numOfData);
+
+        for (ClusterIndexHealth indexHealth : clusterHealthResponse.getIndices().values()) {
+            log.info("indexHealth");
+            log.info("indexName:{},shards:{},replicas:{}", indexHealth.getIndex(),indexHealth.getNumberOfShards(),indexHealth.getNumberOfReplicas());
+            ClusterHealthStatus healthStatus = indexHealth.getStatus();
+            log.info("healthStatus:{}", healthStatus.toString());
+        }
+    }
 }
 
