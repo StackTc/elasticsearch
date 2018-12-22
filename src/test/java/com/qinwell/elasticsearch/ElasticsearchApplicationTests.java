@@ -1,5 +1,7 @@
 package com.qinwell.elasticsearch;
 
+import com.qinwell.elasticsearch.es.dao.AppUserRepository;
+import com.qinwell.elasticsearch.es.entity.AppUserEs;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -43,6 +46,9 @@ import java.util.Map;
 public class ElasticsearchApplicationTests {
 
     private TransportClient client;
+
+    @Autowired
+    private AppUserRepository appUserRepository;
 
     @Before
     public void load() throws UnknownHostException {
@@ -84,7 +90,7 @@ public class ElasticsearchApplicationTests {
                 field("name", "lintiancheng")
                 .field("age", 20).endObject();
 
-        IndexResponse indexResponse = client.prepareIndex("stacktc", "test", "2").setSource(doc).get();
+        IndexResponse indexResponse = client.prepareIndex("stacktc", "test", "4").setSource(jsonObject,jsonObject.length()).get();
         log.info("文档添加结果：{}", indexResponse.status().name());
     }
 
@@ -247,6 +253,19 @@ public class ElasticsearchApplicationTests {
             ClusterHealthStatus healthStatus = indexHealth.getStatus();
             log.info("healthStatus:{}", healthStatus.toString());
         }
+    }
+
+
+    /**
+     * 使用spring 教程 elasticsearch的工具插入
+     */
+    @Test
+    public void esEepositoryTest() {
+        AppUserEs appUser = new AppUserEs();
+        appUser.setId(2L);
+        appUser.setUsername("tc");
+        appUser.setPassword("23131");
+        appUserRepository.save(appUser);
     }
 }
 
