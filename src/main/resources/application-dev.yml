@@ -1,0 +1,9 @@
+#开发配置
+spring:
+  profiles: dev
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver

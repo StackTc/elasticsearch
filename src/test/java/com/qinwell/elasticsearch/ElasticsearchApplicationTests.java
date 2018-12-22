@@ -26,7 +26,6 @@ import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.metrics.max.Max;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +33,9 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
