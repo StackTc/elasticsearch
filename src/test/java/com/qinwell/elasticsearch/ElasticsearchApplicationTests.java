@@ -262,7 +262,7 @@ public class ElasticsearchApplicationTests {
     @Test
     public void esEepositoryTest() {
         AppUserEs appUser = new AppUserEs();
-        appUser.setId(2L);
+        appUser.setId(3L);
         appUser.setUsername("tc");
         appUser.setPassword("23131");
         appUserRepository.save(appUser);
